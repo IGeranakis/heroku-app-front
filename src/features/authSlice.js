@@ -11,38 +11,44 @@ const initialState={
 
 export const LoginUser=createAsyncThunk("user/loginUser",async(user,thunkAPI)=>{
     try{
+        console.log(apiBaseUrl)
         const response=await axios.post(`${apiBaseUrl}/login`,
             {
             email:user.email,
             password:user.password
         },
-        {    
-          withCredentials: true,
-          headers:{
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer HRKU-5437a59c-9a06-48b3-9532-08eafb3f327b'
-          },
+        {
+            withCredentials: true, // Add this if your backend uses cookies for authentication
+        }
+        
+      //   {    
+      //     withCredentials: true,
+      //     headers:{
+      //       'Content-Type': 'application/json',
+      //       'Authorization': 'Bearer HRKU-5437a59c-9a06-48b3-9532-08eafb3f327b'
+      //     },
           
-      crossDomain: true
-        }
-    ).catch(error => {
-        if (error.response) {
-          // The server responded with a status code outside the 2xx range
-          console.log('Error response:', error.response);
-        } else if (error.request) {
-          // The request was made but no response was received
-          console.log('Error request:', error.request);
-        } else {
-          // Something happened in setting up the request that triggered an error
-          console.log('Error message:', error.message);
-        }
-      });
-        return response.data;
-    } catch(error){
+      // crossDomain: true
+      //   }
+    // ).catch(error => {
+    //     if (error.response) {
+    //       // The server responded with a status code outside the 2xx range
+    //       console.log('Error response:', error.response); eeeeeeeeeee
+    //     } else if (error.request) {
+    //       // The request was made but no response was received
+    //       console.log('Error request:', error.request);
+    //     } else {
+    //       // Something happened in setting up the request that triggered an error
+    //       console.log('Error message:', error.message);
+    //     }
+    //   });
+        // return response.data;
+)} catch(error){
         if(error.response){
             const message=error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
         }
+        return response.data;
     }
 });
 
@@ -50,14 +56,14 @@ export const getMe=createAsyncThunk("user/getMe",async(_,thunkAPI)=>{
     try{
         const response=await axios.get(`${apiBaseUrl}/me`,{timeout: 5000},
              {  
-                withCredentials: true,
-                credentials:"include",
-                headers:{
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer HRKU-5437a59c-9a06-48b3-9532-08eafb3f327b'
+      //           withCredentials: true,
+      //           credentials:"include",
+      //           headers:{
+      //               'Content-Type': 'application/json',
+      //               'Authorization': 'Bearer HRKU-5437a59c-9a06-48b3-9532-08eafb3f327b'
 
-                  },
-      crossDomain: true
+      //             },
+      // crossDomain: true
         }
 
         ).catch(error => {
